@@ -7,7 +7,6 @@ import io.ktor.server.testing.TestApplicationEngine
 import io.ktor.server.testing.withTestApplication
 import org.junit.jupiter.api.Test
 import kotlin.test.assertEquals
-import kotlin.test.assertTrue
 
 class HomeTest {
     private fun withTestProjectK(test: TestApplicationEngine.() -> Unit) {
@@ -30,10 +29,5 @@ class HomeTest {
                 assertEquals(HttpStatusCode.OK, response.status())
             }
         }
-    }
-
-    @Test
-    fun thisTestWillFail() {
-        assertTrue(false, "I am doing this on purpose")
     }
 }
