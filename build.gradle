@@ -1,0 +1,49 @@
+buildscript {
+    ext.kotlin_version = '1.3.72'
+    ext.ktor_version = '1.3.2'
+
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+    }
+}
+
+apply plugin: 'java'
+apply plugin: 'kotlin'
+apply plugin: 'application'
+
+group 'com.github.dripolles'
+version '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+    jcenter()
+}
+
+mainClassName = 'com.github.dripolles.projectk.MainKt'
+
+test {
+    useJUnitPlatform()
+    testLogging {
+        showStandardStreams = true
+        events = ["started", "skipped", "failed"]
+    }
+}
+
+dependencies {
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8"
+    implementation "io.ktor:ktor-server-netty:$ktor_version"
+
+    testCompile "org.junit.jupiter:junit-jupiter:5.6.2"
+    testCompile "io.ktor:ktor-server-test-host:$ktor_version"
+}
+
+compileKotlin {
+    kotlinOptions.jvmTarget = "1.8"
+}
+compileTestKotlin {
+    kotlinOptions.jvmTarget = "1.8"
+}
+
