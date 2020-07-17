@@ -6,14 +6,16 @@ import io.ktor.application.install
 import io.ktor.routing.Routing
 import io.ktor.server.engine.embeddedServer
 import io.ktor.server.netty.Netty
+import org.apache.logging.log4j.kotlin.Logging
 
+object Main : Logging
 
 fun main(args: Array<String>) {
-    println("Hello world")
     val server = embeddedServer(Netty, port = 8080) {
         installFeatures()
         homeModule()
     }
+    Main.logger.debug { "Starting server" }
     server.start(wait = true)
 }
 

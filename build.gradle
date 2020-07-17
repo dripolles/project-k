@@ -26,14 +26,23 @@ mainClassName = 'com.github.dripolles.projectk.MainKt'
 
 test {
     useJUnitPlatform()
-    testLogging {
-        showStandardStreams = true
-        events = ["started", "skipped", "failed"]
+    testLogging.events = ["passed", "skipped", "failed", "standardOut", "standardError"]
+    afterSuite { desc, result ->
+        if (!desc.parent) { // will match the outermost suite
+            def output = "\nResults: ${result.resultType} (${result.testCount} tests, ${result.successfulTestCount} passed, ${result.failedTestCount} failed, ${result.skippedTestCount} skipped)"
+            println(output)
+        }
     }
 }
 
 dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8"
+    implementation "org.apache.logging.log4j:log4j-api-kotlin:1.0.0"
+    implementation "org.apache.logging.log4j:log4j-core:2.11.1"
+    implementation "org.apache.logging.log4j:log4j-api:2.11.1"
+    implementation "org.slf4j:slf4j-simple:1.7.30"
+
+
     implementation "io.ktor:ktor-server-netty:$ktor_version"
 
     testCompile "org.junit.jupiter:junit-jupiter:5.6.2"
