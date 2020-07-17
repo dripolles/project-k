@@ -5,10 +5,13 @@ import io.ktor.http.HttpMethod
 import io.ktor.http.HttpStatusCode
 import io.ktor.server.testing.TestApplicationEngine
 import io.ktor.server.testing.withTestApplication
+import org.apache.logging.log4j.kotlin.Logging
 import org.junit.jupiter.api.Test
 import kotlin.test.assertEquals
 
 class HomeTest {
+    companion object: Logging
+
     private fun withTestProjectK(test: TestApplicationEngine.() -> Unit) {
         withTestApplication(
             {
