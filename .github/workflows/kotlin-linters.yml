@@ -1,4 +1,4 @@
-name: Kotlin sinting + statuc analysis
+name: Kotlin linting + static analysis
 
 on:
   push:
