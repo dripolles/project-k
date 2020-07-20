@@ -45,7 +45,10 @@ dependencies {
     implementation "org.apache.logging.log4j:log4j-core:2.11.1"
     implementation "org.apache.logging.log4j:log4j-api:2.11.1"
     implementation "org.slf4j:slf4j-simple:1.7.30"
+
+    implementation "org.kodein.di:kodein-di:7.0.0"
     implementation "io.ktor:ktor-server-netty:$ktor_version"
+    implementation "io.ktor:ktor-auth:$ktor_version"
 
     detektPlugins "io.gitlab.arturbosch.detekt:detekt-formatting:1.10.0"
 
@@ -54,6 +57,7 @@ dependencies {
         exclude group: "ch.qos.logback"
     }
 
+    testImplementation "io.mockk:mockk:1.10.0"
 }
 
 compileKotlin {
