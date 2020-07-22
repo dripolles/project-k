@@ -1,5 +1,8 @@
 {% extends "base.html" %}
 
 {% block content %}
-<h2>Logged in as {{username}}</h2>
+<h2>Logged in as {{ username }}</h2>
+<form method="POST" action="{{ logout }}">
+    <input type="submit" content="Logout">
+</form>
 {% endblock %}
