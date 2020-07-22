@@ -1,10 +1,16 @@
 {% extends "base.html" %}
 
 {% block content %}
-<h2>Login</h2>
+<div id="login-form-container">
+<div class=".form-vertical" id="login-form">
+<div >Login</div>
 <form action="{{action}}" method="POST" enctype="multipart/form-data">
-    <label for="username">username</label><input type="text" id="username" name="username"><br>
-    <label for="password">password</label><input type="password" id="password" name="password"><br>
-    <input type="submit" value="Login">
+        <div class="fill-all"><input type="text" id="username" name="username" placeholder="username"></div>
+        <div class="fill-all"><input type="password" id="password" name="password" placeholder="password"></div>
+    <div class="form-buttons">
+        <input type="submit" value="Login">
+    </div>
 </form>
+</div>
+</div>
 {% endblock %}

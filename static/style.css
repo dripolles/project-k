@@ -2,3 +2,39 @@
     color: #212124;
     font-family: roboto, arial, sans-serif;
 }
+
+.form-vertical {
+    display: flex;
+    flex-flow: column;
+    justify-content: center;
+    align-items: stretch;
+}
+
+.fill-all input  {
+    margin-top:10px;
+    width: 100%;
+    border: 1px solid #d3d3d3;
+}
+
+.form-buttons {
+    padding-top: 10px;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+}
+
+#login-form-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+}
+
+#login-form {
+    width: 500px;
+    border-color: #d3d3d3;
+    border-style: solid;
+    border-width: 1px;
+    padding: 10px;
+}
