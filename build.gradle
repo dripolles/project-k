@@ -7,6 +7,7 @@ buildscript {
     }
     dependencies {
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+        classpath 'com.github.jengelman.gradle.plugins:shadow:5.2.0'
     }
 }
 
@@ -18,6 +19,8 @@ apply plugin: 'java'
 apply plugin: 'kotlin'
 apply plugin: 'application'
 apply plugin: 'jacoco'
+apply plugin: 'com.github.johnrengelman.shadow'
+
 
 group 'com.github.dripolles'
 version '1.0-SNAPSHOT'
@@ -47,6 +50,13 @@ jacocoTestReport {
         xml.enabled = true
         html.enabled = true
     }
+}
+
+shadowJar {
+    manifest {
+        attributes 'Main-Class': mainClassName
+    }
+    archiveFileName = 'project-k.jar'
 }
 
 dependencies {
