@@ -1,23 +1,28 @@
 package com.github.dripolles.projectk.api
 
 import com.github.dripolles.projectk.FeaturesConfig
+import com.github.dripolles.projectk.auth.AuthConfig
 import com.github.dripolles.projectk.auth.FormAuthConfig
 import com.github.dripolles.projectk.auth.LoginFormValidator
 import com.github.dripolles.projectk.auth.UserIdPrincipal
 import com.github.dripolles.projectk.installFeatures
 import com.github.dripolles.projectk.session.SessionsConfig
+import com.github.dripolles.projectk.session.UserSession
 import io.ktor.auth.UserPasswordCredential
 import io.ktor.http.HttpMethod
 import io.ktor.http.HttpStatusCode
 import io.ktor.server.testing.TestApplicationEngine
 import io.ktor.server.testing.setBody
 import io.ktor.server.testing.withTestApplication
+import io.ktor.sessions.get
+import io.ktor.sessions.sessions
 import io.mockk.every
 import io.mockk.mockk
 import io.mockk.slot
 import org.apache.logging.log4j.kotlin.Logging
+import org.junit.jupiter.api.Assertions.assertEquals
+import org.junit.jupiter.api.Assertions.assertNull
 import org.junit.jupiter.api.Test
-import kotlin.test.assertEquals
 
 class LoginTest {
     companion object : Logging
@@ -36,12 +41,12 @@ class LoginTest {
 
         }
 
-    private fun withTestProjectK(test: TestApplicationEngine.() -> Unit) {
+    private fun withTestProjectK(authConfig: AuthConfig = FormAuthConfig(loginFormValidator), test: TestApplicationEngine.() -> Unit) {
         withTestApplication(
             {
                 installFeatures(
                     FeaturesConfig(
-                        auth = FormAuthConfig(loginFormValidator),
+                        auth = authConfig,
                         sessions = SessionsConfig()
                     )
                 )
@@ -89,6 +94,18 @@ class LoginTest {
                 uri = Routes.LOGIN
             }.apply {
                 assertEquals(HttpStatusCode.OK, response.status())
+            }
+        }
+    }
+
+    @Test
+    fun `logout logs the user out and sends it home`() {
+        withTestProjectK(TestAuthConfig("user1")) {
+            handleRequest {
+                method = HttpMethod.Post
+                uri = Routes.LOGOUT
+            }.apply {
+                assertNull(sessions.get<UserSession>())
             }
         }
     }

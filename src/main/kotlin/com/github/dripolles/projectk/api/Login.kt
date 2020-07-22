@@ -13,6 +13,7 @@ import io.ktor.response.respondRedirect
 import io.ktor.routing.get
 import io.ktor.routing.post
 import io.ktor.routing.routing
+import io.ktor.sessions.clear
 import io.ktor.sessions.sessions
 import io.ktor.sessions.set
 
@@ -31,6 +32,10 @@ fun Application.loginModule() {
                 val principal = call.principal<UserIdPrincipal>()!!
                 call.sessions.set(UserSession(principal.username))
                 call.respondRedirect(Routes.HOME)
+            }
+            post(Routes.LOGOUT) {
+                call.sessions.clear<UserSession>()
+                call.respondRedirect(Routes.LOGIN)
             }
         }
     }

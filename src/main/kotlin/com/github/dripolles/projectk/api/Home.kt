@@ -17,7 +17,10 @@ fun Application.homeModule() {
         authenticate(AuthConfig.USER) {
             get(Routes.HOME) {
                 val userSession = call.sessions.get<UserSession>()!!
-                val model = mapOf("username" to userSession.username)
+                val model = mapOf(
+                    "username" to userSession.username,
+                    "logout" to Routes.LOGOUT
+                )
                 val content = PebbleContent("home.html", model)
                 call.respond(content)
             }
