@@ -7,8 +7,9 @@ import io.ktor.application.Application
 import io.ktor.application.call
 import io.ktor.auth.authenticate
 import io.ktor.auth.principal
+import io.ktor.pebble.PebbleContent
+import io.ktor.response.respond
 import io.ktor.response.respondRedirect
-import io.ktor.response.respondText
 import io.ktor.routing.get
 import io.ktor.routing.post
 import io.ktor.routing.routing
@@ -17,9 +18,14 @@ import io.ktor.sessions.set
 
 fun Application.loginModule() {
     routing {
+        val model = mapOf(
+            "action" to Routes.LOGIN
+        )
+        val content = PebbleContent("login.html", model)
         get(Routes.LOGIN) {
-            call.respondText("Placeholder for the login form")
+            call.respond(content)
         }
+
         authenticate(AuthConfig.USER) {
             post(Routes.LOGIN) {
                 val principal = call.principal<UserIdPrincipal>()!!
