@@ -106,6 +106,8 @@ class LoginTest {
                 uri = Routes.LOGOUT
             }.apply {
                 assertNull(sessions.get<UserSession>())
+                assertEquals(HttpStatusCode.Found, response.status())
+                assertEquals(Routes.LOGIN, response.headers["Location"])
             }
         }
     }
