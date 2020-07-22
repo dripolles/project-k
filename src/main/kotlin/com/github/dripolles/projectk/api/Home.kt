@@ -5,6 +5,7 @@ import com.github.dripolles.projectk.session.UserSession
 import io.ktor.application.Application
 import io.ktor.application.call
 import io.ktor.auth.authenticate
+import io.ktor.pebble.PebbleContent
 import io.ktor.response.respond
 import io.ktor.routing.get
 import io.ktor.routing.routing
@@ -16,7 +17,9 @@ fun Application.homeModule() {
         authenticate(AuthConfig.USER) {
             get(Routes.HOME) {
                 val userSession = call.sessions.get<UserSession>()!!
-                call.respond("Home of user: ${userSession.username}")
+                val model = mapOf("username" to userSession.username)
+                val content = PebbleContent("home.html", model)
+                call.respond(content)
             }
         }
     }

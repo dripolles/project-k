@@ -79,6 +79,17 @@ class LoginTest {
                 assertEquals(Routes.LOGIN, response.headers["Location"])
             }
         }
+    }
 
+    @Test
+    fun `login form can be get without errors`() {
+        withTestProjectK {
+            handleRequest {
+                method = HttpMethod.Get
+                uri = Routes.LOGIN
+            }.apply {
+                assertEquals(HttpStatusCode.OK, response.status())
+            }
+        }
     }
 }

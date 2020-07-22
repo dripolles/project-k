@@ -59,6 +59,9 @@ dependencies {
     implementation "org.kodein.di:kodein-di:7.0.0"
     implementation "io.ktor:ktor-server-netty:$ktor_version"
     implementation "io.ktor:ktor-auth:$ktor_version"
+    implementation "io.ktor:ktor-pebble:$ktor_version"
+
+
 
     detektPlugins "io.gitlab.arturbosch.detekt:detekt-formatting:1.10.0"
 
