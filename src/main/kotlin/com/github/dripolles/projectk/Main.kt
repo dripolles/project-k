@@ -32,6 +32,8 @@ import java.util.concurrent.TimeUnit
 
 object Main : Logging
 
+const val SESSION_STORAGE_TAG = "user"
+
 fun main(args: Array<String>) {
     val server = embeddedServer(Netty, port = 8080) {
         val di = configDependencies()
@@ -56,8 +58,8 @@ fun configDependencies(): DI {
         bind<LoginFormValidator>() with singleton { StaticLoginFormValidator() }
         bind<AuthConfig>() with singleton { FormAuthConfig(instance()) }
 
-        bind<SessionStorage>("user") with singleton { SessionStorageMemory() }
-        bind<SessionsConfig>() with singleton { SessionsConfig(instance("user")) }
+        bind<SessionStorage>(SESSION_STORAGE_TAG) with singleton { SessionStorageMemory() }
+        bind<SessionsConfig>() with singleton { SessionsConfig(instance(SESSION_STORAGE_TAG)) }
         bind<FeaturesConfig>() with singleton { FeaturesConfig(instance(), instance()) }
     }
 }
